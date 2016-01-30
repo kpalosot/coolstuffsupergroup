@@ -24,7 +24,6 @@ public class SphereMove : MonoBehaviour {
 	float respawnTime;
 	// Use this for initialization
 	void Start () {
-		//rb = GetComponent<Rigidbody> ();
 		cube = GameObject.Find ("Cube");
 		pig = GameObject.Find ("Pig");
 		player = GameObject.Find("Player");
@@ -32,7 +31,6 @@ public class SphereMove : MonoBehaviour {
 		canvasScript = GameObject.Find ("Canvas");
 		hp = 1;
 		canvasScript.GetComponent<CanvasScript>().setHp ();
-		//splane = GameObject.Find ("SPlane");
 	}
 	
 
@@ -47,13 +45,21 @@ public class SphereMove : MonoBehaviour {
 		distance  = Vector3.Distance(player.transform.position, enemy.transform.position);	
 		canPickup = ((distance >= 1f) && !isHolding);
 		
-		if (Input.GetKey(KeyCode.UpArrow)){ transform.position = Vector3.Lerp(transform.position,transform.TransformPoint(Vector3.forward),10f* Time.deltaTime); }
+		if (Input.GetKey(KeyCode.UpArrow)){
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.forward), 10f * Time.deltaTime);
+		}
 		
-		if (Input.GetKey(KeyCode.DownArrow)){ transform.position = Vector3.Lerp(transform.position, transform.TransformPoint (Vector3.back),10f* Time.deltaTime); }
+		if (Input.GetKey(KeyCode.DownArrow)){
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint (Vector3.back), 10f * Time.deltaTime);
+		}
 		
-		if (Input.GetKey(KeyCode.LeftArrow)){ transform.position = Vector3.Lerp(transform.position,transform.TransformPoint(Vector3.left),10f* Time.deltaTime); }
+		if (Input.GetKey(KeyCode.LeftArrow)){
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.left), 10f * Time.deltaTime);
+		}
 		
-		if (Input.GetKey(KeyCode.RightArrow)){ transform.position = Vector3.Lerp(transform.position,transform.TransformPoint(Vector3.right),10f* Time.deltaTime); }
+		if (Input.GetKey(KeyCode.RightArrow)){
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.right), 10f * Time.deltaTime);
+		}
 
 
 	}
@@ -64,9 +70,7 @@ public class SphereMove : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		//Debug.Log(other.name);
 		if (other.gameObject.CompareTag ("Pickup") && canPickup){
-			//other.gameObject.SetActive(false);
 			cube.transform.position = transform.position;
 			cube.transform.position = Vector3.Lerp(cube.transform.position, cube.transform.TransformPoint(Vector3.back), 5f);
 			cube.transform.position = Vector3.Lerp(cube.transform.position, cube.transform.TransformPoint(Vector3.up), 15f);
@@ -99,14 +103,8 @@ public class SphereMove : MonoBehaviour {
 
 		}
 
-		/*if (other.gameObject.name == "Capsule") {
-			this.gameObject.SetActive (false);
-		}*/
-
-		//check collision of Player and Capsule and if Player is holding pig object
-		//might want to change this so that it works for all other objects when we get there
-		if(other.gameObject.CompareTag("Capsule") && isHolding){
-		/*
+		/*if(other.gameObject.CompareTag("Capsule") && isHolding){
+		
 			//Vector3 downTrans = new Vector3 ();
 			held.transform.position = transform.position;
 			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
@@ -115,15 +113,11 @@ public class SphereMove : MonoBehaviour {
 			held = null;
 			//pig.transform.DetachChildren();
 			//pig.transform.parent = splane.transform;
-		*/
-		}
 
-		//collision with other objects(any other object not just pig) followed by a collision of capsule seems to break the game
-		//collision with other objects other than pig makes our player object get stuck with that object
+		}*/
 
 	}
 	public void drop(){
-		Debug.Log("DRRRRROP distance = "+distance);
 		if (isHolding){
 			held.transform.position = transform.position;
 			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
@@ -137,7 +131,7 @@ public class SphereMove : MonoBehaviour {
 
 		}
 		if (!isHolding) {
-			if(respawnTime<=0){
+			if(respawnTime <= 0){
 				hp--;
 				canvasScript.GetComponent<CanvasScript>().setHp ();
 
