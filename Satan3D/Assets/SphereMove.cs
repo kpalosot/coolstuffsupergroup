@@ -15,7 +15,7 @@ public class SphereMove : MonoBehaviour {
 	bool isHolding = false;
 	bool canPickup = true;
 	
-	Vector3 distance;
+	float distance;
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody> ();
@@ -30,7 +30,8 @@ public class SphereMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		canPickup = ((Vector3.Distance(player.transform.position, enemy.transform.position) <= 15f) && !isHolding);
+		distance  = Vector3.Distance(player.transform.position, enemy.transform.position);	
+		canPickup = ((distance >= 1f) && !isHolding);
 		
 		if (Input.GetKey(KeyCode.UpArrow)){ transform.position = Vector3.Lerp(transform.position,transform.TransformPoint(Vector3.forward),10f* Time.deltaTime); }
 		
@@ -105,7 +106,7 @@ public class SphereMove : MonoBehaviour {
 
 	}
 	public void drop(){
-		Debug.Log("DRRRRROP");
+		Debug.Log("DRRRRROP distance = "+distance);
 		if (isHolding){
 			held.transform.position = transform.position;
 			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
