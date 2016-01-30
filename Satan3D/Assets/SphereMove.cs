@@ -8,13 +8,21 @@ public class SphereMove : MonoBehaviour {
 	public float speed;
 	GameObject cube;
 	GameObject pig;
+	GameObject player;
+	GameObject enemy;
 	GameObject held = null;
+	
 	bool isHolding = false;
+	bool canPickup = true;
+	
+	Vector3 distance;
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody> ();
 		cube = GameObject.Find ("Cube");
 		pig = GameObject.Find ("Pig");
+		player = GameObject.Find("Player");
+		enemy = GameObject.Find("Capsule");
 		//splane = GameObject.Find ("SPlane");
 	}
 	
@@ -22,6 +30,7 @@ public class SphereMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		canPickup = ((Vector3.Distance(player.transform.position, enemy.transform.position) <= 15f) && !isHolding);
 		
 		if (Input.GetKey(KeyCode.UpArrow)){ transform.position = Vector3.Lerp(transform.position,transform.TransformPoint(Vector3.forward),10f* Time.deltaTime); }
 		
@@ -44,7 +53,8 @@ public class SphereMove : MonoBehaviour {
 	}*/
 
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.CompareTag ("Pickup") && !isHolding){
+		//Debug.Log(other.name);
+		if (other.gameObject.CompareTag ("Pickup") && canPickup){
 			//other.gameObject.SetActive(false);
 			cube.transform.position = transform.position;
 			cube.transform.position = Vector3.Lerp(cube.transform.position, cube.transform.TransformPoint(Vector3.back), 5f);
@@ -55,7 +65,7 @@ public class SphereMove : MonoBehaviour {
 			held = cube;
 		}
 
-		if (other.gameObject.CompareTag ("Pig") && !isHolding) {
+		if (other.gameObject.CompareTag ("Pig") && canPickup) {
 			pig.transform.position = transform.position;
 			pig.transform.position = Vector3.Lerp(pig.transform.position, pig.transform.TransformPoint(Vector3.forward), 5f);
 			pig.transform.position = Vector3.Lerp(pig.transform.position, pig.transform.TransformPoint(Vector3.up), 15f);
@@ -78,6 +88,7 @@ public class SphereMove : MonoBehaviour {
 		//check collision of Player and Capsule and if Player is holding pig object
 		//might want to change this so that it works for all other objects when we get there
 		if(other.gameObject.CompareTag("Capsule") && isHolding){
+		/*
 			//Vector3 downTrans = new Vector3 ();
 			held.transform.position = transform.position;
 			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
@@ -86,12 +97,23 @@ public class SphereMove : MonoBehaviour {
 			held = null;
 			//pig.transform.DetachChildren();
 			//pig.transform.parent = splane.transform;
-
+		*/
 		}
 
 		//collision with other objects(any other object not just pig) followed by a collision of capsule seems to break the game
 		//collision with other objects other than pig makes our player object get stuck with that object
 
 	}
+	public void drop(){
+		Debug.Log("DRRRRROP");
+		if (isHolding){
+			held.transform.position = transform.position;
+			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
+			held.transform.parent = null;
+			isHolding = false;
+			held = null;
+		}
+	}
+	
 }
 
