@@ -22,5 +22,6 @@ public class Follow : MonoBehaviour {
 		if(other.gameObject.CompareTag ("Player")) {
 			player.GetComponent<SphereMove>().drop();
 		}
+
 	}
 }

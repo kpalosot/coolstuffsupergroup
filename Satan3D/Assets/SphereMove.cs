@@ -11,11 +11,17 @@ public class SphereMove : MonoBehaviour {
 	GameObject player;
 	GameObject enemy;
 	GameObject held = null;
+	GameObject text;
+	GameObject canvasScript;
+
 	
 	bool isHolding = false;
 	bool canPickup = true;
+
+	public int hp;
 	
 	float distance;
+	float respawnTime;
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody> ();
@@ -23,6 +29,9 @@ public class SphereMove : MonoBehaviour {
 		pig = GameObject.Find ("Pig");
 		player = GameObject.Find("Player");
 		enemy = GameObject.Find("Capsule");
+		canvasScript = GameObject.Find ("Canvas");
+		hp = 1;
+		canvasScript.GetComponent<CanvasScript>().setHp ();
 		//splane = GameObject.Find ("SPlane");
 	}
 	
@@ -30,6 +39,11 @@ public class SphereMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (hp == 0) {
+			transform.DetachChildren();
+			this.gameObject.SetActive(false);
+		}
+
 		distance  = Vector3.Distance(player.transform.position, enemy.transform.position);	
 		canPickup = ((distance >= 1f) && !isHolding);
 		
@@ -43,15 +57,11 @@ public class SphereMove : MonoBehaviour {
 
 
 	}
-	/*(void FixedUpdate ()
-	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
-		
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-		
-		rb.AddForce (movement * speed);
-	}*/
+
+	void FixedUpdate (){
+		respawnTime = respawnTime - 1f * Time.deltaTime;
+		Debug.Log (respawnTime);
+	}
 
 	void OnTriggerEnter(Collider other) {
 		//Debug.Log(other.name);
@@ -84,6 +94,9 @@ public class SphereMove : MonoBehaviour {
 			held.SetActive (false);
 			held = null;
 			isHolding = false;
+			hp++;
+			canvasScript.GetComponent<CanvasScript>().setHp ();
+
 		}
 
 		/*if (other.gameObject.name == "Capsule") {
@@ -120,7 +133,19 @@ public class SphereMove : MonoBehaviour {
 			isHolding = false;
 			held = null;
 
+			respawnTime = 2f;
+
 		}
+		if (!isHolding) {
+			if(respawnTime<=0){
+				hp--;
+				canvasScript.GetComponent<CanvasScript>().setHp ();
+
+			}
+		}
+	}
+	public string getHp(){
+		return hp.ToString ();
 	}
 	
 }
