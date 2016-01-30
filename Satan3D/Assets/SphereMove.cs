@@ -64,6 +64,8 @@ public class SphereMove : MonoBehaviour {
 			cube.transform.parent = transform;
 			isHolding = true;
 			held = cube;
+
+			cube.GetComponent<Run>().hold();
 		}
 
 		if (other.gameObject.CompareTag ("Pig") && canPickup) {
@@ -74,6 +76,8 @@ public class SphereMove : MonoBehaviour {
 			pig.transform.parent = transform;
 			isHolding = true;
 			held = pig;
+
+			pig.GetComponent<Run>().hold();
 		}
 
 		if (other.gameObject.CompareTag ("Pentagon") && isHolding) {
@@ -111,8 +115,11 @@ public class SphereMove : MonoBehaviour {
 			held.transform.position = transform.position;
 			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
 			held.transform.parent = null;
+			held.GetComponent<Run>().drop ();
+
 			isHolding = false;
 			held = null;
+
 		}
 	}
 	

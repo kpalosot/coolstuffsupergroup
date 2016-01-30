@@ -19,7 +19,7 @@ public class Follow : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.CompareTag ("Player")) {
+		if(other.gameObject.CompareTag ("Player")) {
 			player.GetComponent<SphereMove>().drop();
 		}
 	}
