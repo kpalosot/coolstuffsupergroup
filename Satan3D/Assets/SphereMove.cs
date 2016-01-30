@@ -78,8 +78,9 @@ public class SphereMove : MonoBehaviour {
 		//check collision of Player and Capsule and if Player is holding pig object
 		//might want to change this so that it works for all other objects when we get there
 		if(other.gameObject.CompareTag("Capsule") && isHolding){
+			//Vector3 downTrans = new Vector3 ();
 			held.transform.position = transform.position;
-			held.transform.position = Vector3.Lerp(held.transform.position,held.transform.TransformPoint(Vector3.down),5f);
+			held.transform.position = Vector3.Lerp(held.transform.position, held.transform.TransformPoint(Vector3.zero), 5f);
 			held.transform.parent = null;
 			isHolding = false;
 			held = null;
