@@ -7,6 +7,7 @@ TagManager:
   - Pickup
   - Pig
   - Pentagon
+  - Capsule
   layers:
   - Default
   - TransparentFX

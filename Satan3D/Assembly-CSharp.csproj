@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CanvasScript.cs" />
      <Compile Include="Assets\Follow.cs" />
+     <Compile Include="Assets\Run.cs" />
      <Compile Include="Assets\SphereMove.cs" />
      <Compile Include="Assets\Spin.cs" />
  <Reference Include="UnityEngine.Analytics">

@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Follow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SphereMove.cs">
     <Files>
-      <File FileName="Assets/Follow.cs" Line="1" Column="1" />
+      <File FileName="Assets/Follow.cs" Line="25" Column="3" />
+      <File FileName="Assets/SphereMove.cs" Line="32" Column="11" />
+      <File FileName="Assets/Run.cs" Line="6" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
