@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Follow : MonoBehaviour {
-	public float speed;
+	//public float speed;
 	private GameObject player;
 	Vector3 direction;
 
@@ -14,7 +14,7 @@ public class Follow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		direction = player.transform.position - this.gameObject.transform.position;
-		transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (direction), 2f * Time.deltaTime);
+		transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Normalize(direction)), 2f * Time.deltaTime);
 
 	}
 
@@ -24,3 +24,8 @@ public class Follow : MonoBehaviour {
 		}
 	}
 }
+
+/*
+//Vector3 speed = (player.GetComponent<SphereMove> ().getSpeed ());
+		//transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Scale(direction, speed)), 2f * Time.deltaTime);
+ */

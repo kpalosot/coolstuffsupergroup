@@ -5,7 +5,7 @@ public class SphereMove : MonoBehaviour {
 
 	// Use this for initialization
 	private Rigidbody rb;
-	public float speed;
+	//public float speed;
 	GameObject cube;
 	GameObject pig;
 	GameObject player;
@@ -13,6 +13,8 @@ public class SphereMove : MonoBehaviour {
 	GameObject held = null;
 	GameObject text;
 	GameObject canvasScript;
+	Vector3 [] allSpeeds = new Vector3[4];
+	int curSpeedInd;
 
 	
 	bool isHolding = false;
@@ -30,6 +32,12 @@ public class SphereMove : MonoBehaviour {
 		enemy = GameObject.Find("Capsule");
 		canvasScript = GameObject.Find ("Canvas");
 		hp = 1;
+		//speed = 1;
+		allSpeeds[0] = new Vector3 (1, 1, 1);
+		allSpeeds[1] = new Vector3 (1.5f, 1, 1.5f);
+		allSpeeds[2] = new Vector3 (2, 1, 2);
+		allSpeeds[3] = new Vector3 (2.5f, 1, 2.5f);
+		curSpeedInd = 0;
 		canvasScript.GetComponent<CanvasScript>().setHp ();
 	}
 	
@@ -46,27 +54,31 @@ public class SphereMove : MonoBehaviour {
 		canPickup = ((distance >= 1f) && !isHolding);
 		
 		if (Input.GetKey(KeyCode.UpArrow)){
-			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.forward), 10f * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.Scale(Vector3.forward, allSpeeds[curSpeedInd])), 10f * Time.deltaTime);
+			//transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.forward), 10f * Time.deltaTime);
 		}
 		
 		if (Input.GetKey(KeyCode.DownArrow)){
-			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint (Vector3.back), 10f * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint (Vector3.Scale(Vector3.back, allSpeeds[curSpeedInd])), 10f * Time.deltaTime);
+			//transform.position = Vector3.Lerp(transform.position, transform.TransformPoint (Vector3.back), 10f * Time.deltaTime);
 		}
 		
 		if (Input.GetKey(KeyCode.LeftArrow)){
-			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.left), 10f * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.Scale(Vector3.left, allSpeeds[curSpeedInd])), 10f * Time.deltaTime);
+			//transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.left), 10f * Time.deltaTime);
 		}
 		
 		if (Input.GetKey(KeyCode.RightArrow)){
-			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.right), 10f * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.Scale(Vector3.right, allSpeeds[curSpeedInd])), 10f * Time.deltaTime);
+			//transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.right), 10f * Time.deltaTime);
 		}
 
 
 	}
 
 	void FixedUpdate (){
-		respawnTime = respawnTime - 1f * Time.deltaTime;
-		Debug.Log (respawnTime);
+		respawnTime -= Time.deltaTime;
+		//Debug.Log (respawnTime);
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -100,6 +112,7 @@ public class SphereMove : MonoBehaviour {
 			isHolding = false;
 			hp++;
 			canvasScript.GetComponent<CanvasScript>().setHp ();
+			curSpeedInd++;
 
 		}
 
@@ -140,6 +153,10 @@ public class SphereMove : MonoBehaviour {
 	}
 	public string getHp(){
 		return hp.ToString ();
+	}
+
+	public Vector3 getSpeed(){
+		return allSpeeds[curSpeedInd];
 	}
 	
 }
