@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour {
 	GameObject pigBaddy;
 
 	public GameObject[] Baddies;
+	public float[] Distances;
 
 	GameObject held;
 
@@ -28,6 +29,7 @@ public class PlayerMove : MonoBehaviour {
 		pigBaddy = GameObject.Find ("PigBaddy");
 
 		Baddies = new GameObject[10];
+		Distances = new float[10];
 		Baddies[0] = pigBaddy; 
 
 
@@ -45,8 +47,17 @@ public class PlayerMove : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
+		var i = 0;
 		foreach (GameObject baddy in Baddies) {
 			canPickup = canPickup && (Vector3.Distance (baddy.transform.position, transform.position) < 3f);
+			Distances[i] = (Vector3.Distance (pigBaddy.transform.position, transform.position));
+			if(Distances[i] < 3f && canPickup){
+				canPickup = true;
+			}else{
+				canPickup = false;
+			}
+
+			i++;	
 
 
 		}
@@ -62,7 +73,8 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider thing){
-		if (thing.gameObject.CompareTag ("Pig")) {
+
+		if (thing.gameObject.CompareTag ("Pig") && !isHolding) {
 			pig.transform.position = transform.position;
 			pig.transform.position = Vector3.Lerp(pig.transform.position, pig.transform.TransformPoint(Vector3.forward), 5f);
 			pig.transform.position = Vector3.Lerp(pig.transform.position, pig.transform.TransformPoint(Vector3.up), 15f);
@@ -70,7 +82,7 @@ public class PlayerMove : MonoBehaviour {
 			pig.transform.parent = transform;
 
 			held = pig;
-
+			isHolding = true;
 		}
 		if (thing.gameObject.CompareTag ("Baddy")) {
 			drop();
@@ -78,6 +90,12 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 	public void drop(){
-		Debug.Log ("DRRRROP");
+		if (isHolding) {
+			Debug.Log ("DRRRROP");
+			held = null;
+			isHolding = false;
+		} else {
+
+		}
 	}
 }
