@@ -14,8 +14,9 @@ public class Follow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		direction = player.transform.position - this.gameObject.transform.position;
-		transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Normalize(direction)), 2f * Time.deltaTime);
-
+		Vector3 speed = (player.GetComponent<SphereMove> ().getSpeed ());
+		//transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Normalize(direction)), 2f * Time.deltaTime);
+		transform.position = Vector3.Lerp (transform.position, transform.TransformPoint(Vector3.Scale(Vector3.Normalize (direction), speed)), 10f * Time.deltaTime);
 	}
 
 	void OnTriggerEnter(Collider other) {
