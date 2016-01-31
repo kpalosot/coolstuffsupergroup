@@ -10,7 +10,7 @@ public class Follow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindWithTag ("Player");
-		isFollowing = true;
+		isFollowing = false;
 	}
 	
 	// Update is called once per frame
@@ -30,11 +30,11 @@ public class Follow : MonoBehaviour {
 	}
 
 	public void follow(){
-		
+		isFollowing = true;
 	}
 
 	public void unfollow(){
-		
+		isFollowing = false;
 	}
 }
 

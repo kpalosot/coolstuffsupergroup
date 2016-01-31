@@ -102,7 +102,7 @@ public class SphereMove : MonoBehaviour {
 			pig.transform.parent = transform;
 			isHolding = true;
 			held = pig;
-
+			priest.GetComponent<Follow>().follow ();
 			pig.GetComponent<Run>().hold();
 		}
 
@@ -115,6 +115,13 @@ public class SphereMove : MonoBehaviour {
 			curSpeedInd++;
 
 		}
+
+		if (other.gameObject.CompareTag ("Wall") && isHolding) {
+			priest.GetComponent<Follow>().unfollow ();
+		}
+
+
+
 
 		/*if(other.gameObject.CompareTag("Capsule") && isHolding){
 		
@@ -130,6 +137,7 @@ public class SphereMove : MonoBehaviour {
 		}*/
 
 	}
+
 	public void drop(){
 		if (isHolding){
 			held.transform.position = transform.position;
