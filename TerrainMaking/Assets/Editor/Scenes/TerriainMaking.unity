@@ -3342,6 +3342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Baddies: []
+  Distances: []
 --- !u!54 &1963754704
 Rigidbody:
   m_ObjectHideFlags: 0
