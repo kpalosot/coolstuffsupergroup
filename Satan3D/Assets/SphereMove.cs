@@ -52,8 +52,8 @@ public class SphereMove : MonoBehaviour {
 
 		distance  = Vector3.Distance(player.transform.position, enemy.transform.position);	
 		canPickup = ((distance >= 1f) && !isHolding);
-		
-		if (Input.GetKey(KeyCode.UpArrow)){
+
+	 	if (Input.GetKey(KeyCode.UpArrow)){
 			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.Scale(Vector3.forward, allSpeeds[curSpeedInd])), 10f * Time.deltaTime);
 			//transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.forward), 10f * Time.deltaTime);
 		}
