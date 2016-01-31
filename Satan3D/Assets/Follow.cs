@@ -4,11 +4,13 @@ using System.Collections;
 public class Follow : MonoBehaviour {
 	//public float speed;
 	private GameObject player;
+	bool isFollowing;
 	Vector3 direction;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindWithTag ("Player");
+		isFollowing = true;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +18,9 @@ public class Follow : MonoBehaviour {
 		direction = player.transform.position - this.gameObject.transform.position;
 		Vector3 speed = (player.GetComponent<SphereMove> ().getSpeed ());
 		//transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Normalize(direction)), 2f * Time.deltaTime);
-		transform.position = Vector3.Lerp (transform.position, transform.TransformPoint(Vector3.Scale(Vector3.Normalize (direction), speed)), 10f * Time.deltaTime);
+		if (isFollowing) {
+			transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Scale (Vector3.Normalize (direction), speed)), 10f * Time.deltaTime);
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -24,9 +28,15 @@ public class Follow : MonoBehaviour {
 			player.GetComponent<SphereMove>().drop();
 		}
 	}
+
+	public void follow(){
+		
+	}
+
+	public void unfollow(){
+		
+	}
 }
 
-/*
-//Vector3 speed = (player.GetComponent<SphereMove> ().getSpeed ());
-		//transform.position = Vector3.Lerp (transform.position, transform.TransformPoint (Vector3.Scale(direction, speed)), 2f * Time.deltaTime);
- */
+
+

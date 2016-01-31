@@ -9,7 +9,7 @@ public class SphereMove : MonoBehaviour {
 	GameObject cube;
 	GameObject pig;
 	GameObject player;
-	GameObject enemy;
+	GameObject priest;
 	GameObject held = null;
 	GameObject text;
 	GameObject canvasScript;
@@ -29,7 +29,7 @@ public class SphereMove : MonoBehaviour {
 		cube = GameObject.Find ("Cube");
 		pig = GameObject.Find ("Pig");
 		player = GameObject.Find("Player");
-		enemy = GameObject.Find("Capsule");
+		priest = GameObject.Find("Priest");
 		canvasScript = GameObject.Find ("Canvas");
 		hp = 1;
 		//speed = 1;
@@ -50,10 +50,10 @@ public class SphereMove : MonoBehaviour {
 			this.gameObject.SetActive(false);
 		}
 
-		distance  = Vector3.Distance(player.transform.position, enemy.transform.position);	
+		distance  = Vector3.Distance(player.transform.position, priest.transform.position);	
 		canPickup = ((distance >= 1f) && !isHolding);
 
-	 	if (Input.GetKey(KeyCode.UpArrow)){
+ 		if (Input.GetKey(KeyCode.UpArrow)){
 			transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.Scale(Vector3.forward, allSpeeds[curSpeedInd])), 10f * Time.deltaTime);
 			//transform.position = Vector3.Lerp(transform.position, transform.TransformPoint(Vector3.forward), 10f * Time.deltaTime);
 		}
